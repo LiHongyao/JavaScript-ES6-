@@ -1,4 +1,4 @@
-# # Set
+# 一、Set
 
 ## 1、基本用法
 
@@ -17,7 +17,6 @@ let nums = [1, 2, 3, 2, 1];
 nums = [...new Set(nums)];
 nums
 // (3) [1, 2, 3]
-
 ```
 
 ## 2、属性和方法
@@ -174,7 +173,7 @@ let difference = new Set([...a].filter(x => !b.has(x)));
 // Set {1}
 ```
 
-# # WeakSet
+# 二、WeakSet
 
 ## 1、含义
 
@@ -267,7 +266,7 @@ class Foo {
 
 上面代码保证了`Foo`的实例方法，只能在`Foo`的实例上调用。这里使用 WeakSet 的好处是，`foos`对实例的引用，不会被计入内存回收机制，所以删除实例的时候，不用考虑`foos`，也不会出现内存泄漏。
 
-# # Map
+# 三、Map
 
 ## 1、含义和基本用法
 
@@ -543,7 +542,7 @@ jsonToMap('[[true,7],[{"foo":3},["abc"]]]')
 // Map {true => 7, Object {foo: 3} => ['abc']}
 ```
 
-# # WeakMap
+# 四、WeakMap
 
 ## 1、含义
 
