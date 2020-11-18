@@ -34,3 +34,18 @@ var proxy = new Proxy(target, handler);
 
 - [handler.getOwnPropertyDescriptor](https://links.jianshu.com/go?to=https%3A%2F%2Fdeveloper.mozilla.org%2Fen-US%2Fdocs%2FWeb%2FJavaScript%2FReference%2FGlobal_Objects%2FProxy%2Fhandler%2FgetOwnPropertyDescriptor)
 
+```js
+var obj = new Proxy({}, {
+  get: function (target, propKey, receiver) {
+    console.log(`getting ${propKey}!`);
+    return Reflect.get(target, propKey, receiver);
+  },
+  set: function (target, propKey, value, receiver) {
+    console.log(`setting ${propKey}!`);
+    return Reflect.set(target, propKey, value, receiver);
+  }
+})
+
+obj.count = 1;
+```
+
