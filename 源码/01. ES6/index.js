@@ -1,30 +1,33 @@
 /*
  * @Author: Li-HONGYAO
  * @Date: 2021-04-30 14:50:16
- * @LastEditTime: 2021-05-06 18:10:32
+ * @LastEditTime: 2021-05-07 15:45:38
  * @LastEditors: Li-HONGYAO
  * @Description:
- * @FilePath: \01. ES6\index.js
+ * @FilePath: \源码\01. ES6\index.js
  */
 
-class Student {
-  constructor(name, age, gender) {
-    this.name = name;
-    this.age = age;
-    this.gender = gender;
-  }
-  description() {
-    console.log(`
-        姓名：${this.name}
-        年龄：${this.age}
-        性别：${this.gender}
-    `);
-  }
-}
-// 创建类实例
-let stu = new Student(`Petter`, `26`, `male`);
-console.log(stu.hasOwnProperty(`name`)); // true
-console.log(stu.hasOwnProperty(`age`)); // true
-console.log(stu.hasOwnProperty(`gender`)); // true
-console.log(stu.hasOwnProperty(`description`)); // false
-console.log(stu.__proto__.hasOwnProperty(`description`)); // true
+let api = {
+  _appsecret: "5732e4c9db7ff9f7",
+  appID: "wx1695393264bf7d",
+  wx: "gh_133b3cd88m3a",
+};
+
+const RESTRICTED = ["_appsecret"];
+api = new Proxy(api, {
+  get(target, key, proxy) {
+    if (RESTRICTED.indexOf(key) > -1) {
+      return undefined;
+    }
+    return Reflect.get(target, key, proxy);
+  },
+  set(target, key, value, proxy) {
+    if (RESTRICTED.indexOf(key) > -1) {
+      throw Error(`${key} 为私有属性，不可赋值`);
+    }
+    return Reflect.set(target, key, value, proxy);
+  },
+});
+
+console.log(api._appsecret); // Uncaught Error: _appsecret 为私有属性，不可访问
+api._appsecret = "123"; // Uncaught Error: _appsecret 为私有属性，不可赋值
